@@ -1,4 +1,6 @@
-//coding quiz js
+//Coding quiz JS - Nicholas krilis
+
+// Global variables
 let quizQuestionField = document.querySelector("#quiz-question");
 let startButton = document.querySelector("#start-quiz");
 let quizOptions = document.querySelector("#quiz-buttons");
@@ -73,10 +75,11 @@ let quizBank = [
 },
 ];
 
+// When the clear button is pressed remove local storage items
 clearEl.addEventListener("click", function(){
     localStorage.clear();
     generateHighscores();
-})
+});
 // When clicked start the quiz
 startButton.addEventListener("click", startQuiz);
 // When clicked start the timer
@@ -162,6 +165,7 @@ function checkAnswer()
           {
             console.log("incorrect");
             quizCount ++;
+            secondsLeft = secondsLeft - 5;
             startQuiz();
           }
 
@@ -197,7 +201,7 @@ function displayScore()
     // Create a button element
     let confirm = document.createElement("button")
     confirm.classList.add("btn" , "btn-primary");
-    confirm.textContent = "Save your Highscore";
+    confirm.textContent = "Save your Highscore and Play again";
     confirm.setAttribute("type", "submit");
 
     // Add the button to the html
@@ -236,10 +240,12 @@ function displayScore()
 
 function generateHighscores()
 {
+    // remove elements from list to prevent duplicates
     document.querySelectorAll('.alert').forEach(item => item.remove());
 
     let scoreList = JSON.parse(localStorage.getItem("user"));
 
+    // iterate through each object in storage and append the data to highscores area
     for(let i = 0; i < scoreList.length; i ++)
     {
         const scoreElement = document.createElement("div");
